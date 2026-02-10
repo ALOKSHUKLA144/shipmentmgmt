@@ -41,9 +41,35 @@ namespace shipmentmgmt_WebapiCore.DataLayer.implemetationIRepository
             return res;
         }
 
-        public Address GetaddressById(int id)
+        public IEnumerable<Address> GetaddressById(int id)
         {
-            throw new NotImplementedException();
+            List<Address> addressList = new List<Address>();
+            DataTable dt = _db.select("sp_crud_address", new SqlParameter[]
+            {
+                       new SqlParameter("@AddressId",id),
+                       new SqlParameter("@action",4)
+                // If you need to filter by User, only pass UserId. Keep it simple.
+            });
+            // 2. Convert DataTable to List<Address> manually
+            if (dt != null && dt.Rows.Count > 0)
+            {
+                foreach (DataRow row in dt.Rows)
+                {
+                    addressList.Add(new Address
+                    {
+                        AddressId = Convert.ToInt32(row["AddressId"]),
+                        Name = row["Name"] != DBNull.Value ? row["Name"].ToString() : "",
+                        Phone = row["Phone"] != DBNull.Value ? row["Phone"].ToString() : "",
+                        Line1 = row["Line1"] != DBNull.Value ? row["Line1"].ToString() : "",
+                        Line2 = row["Line2"] != DBNull.Value ? row["Line2"].ToString() : "",
+                        City = row["City"] != DBNull.Value ? row["City"].ToString() : "",
+                        State = row["State"] != DBNull.Value ? row["State"].ToString() : "",
+                        Pincode = row["Pincode"] != DBNull.Value ? row["Pincode"].ToString() : "",
+                        UserId = row["UserId"] != DBNull.Value ? (int?)Convert.ToInt32(row["UserId"]) : null
+                    });
+                }
+            }
+            return addressList;
         }
 
         public List<Address> GetAllAddress()
