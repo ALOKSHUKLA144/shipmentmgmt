@@ -17,7 +17,9 @@ namespace shipmentmgmt_WebapiCore.Controllers
         [HttpPost]
         public IActionResult Createshipment(shipment request)
         {
-           int response=   _shipment.CreateShipment(request);
+            if (request.OrderId == 0 && request.ToAddressId == 0)
+                return BadRequest("please enter orderid and Toaddress");
+                int response = _shipment.CreateShipment(request);
             if(response!=null)
                 return Ok("shipment created successfully");
             else

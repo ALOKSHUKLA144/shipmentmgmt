@@ -17,9 +17,11 @@ namespace shipmentmgmt_WebapiCore.Controllers
         [HttpGet("{id}")]
         public IActionResult Getaddressbyid(int id)
         {
-           
-         
-            return Ok(new { id });
+          var response =  _iaddress.GetaddressById(id);
+            if (response != null)
+                return Ok(response);
+            else
+                return BadRequest("Data Not found");
         }
 
         [HttpGet]

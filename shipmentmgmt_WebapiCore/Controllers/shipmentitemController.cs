@@ -37,7 +37,6 @@ namespace shipmentmgmt_WebapiCore.Controllers
         }
 
         [HttpGet]
-
         public IActionResult Getallshipmentitem()
         {
            var dt=  _ishipmentitem.GetAllshipmentitems();
