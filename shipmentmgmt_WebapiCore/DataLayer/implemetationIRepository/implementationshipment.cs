@@ -69,6 +69,7 @@ namespace shipmentmgmt_WebapiCore.DataLayer.implemetationIRepository
                         PaymentMethod = row["PaymentMethod"]?.ToString(),
                         PaymentStatus = row["PaymentStatus"]?.ToString(),
                         PaymentTransactionId = row["PaymentTransactionId"]?.ToString(),
+                        CreatedDate= Convert.ToDateTime(row["CreatedDate"]),
                         // Handle Money/Decimal safely
                         AmountPaid = row["AmountPaid"] != DBNull.Value ? Convert.ToDecimal(row["AmountPaid"]) : (decimal?)null
                     });
