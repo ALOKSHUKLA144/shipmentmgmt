@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using shipmentmgmt_WebapiCore.BusinessLayer.IRepsitory;
 using shipmentmgmt_WebapiCore.BusinessLayer.Models;
@@ -7,6 +8,7 @@ namespace shipmentmgmt_WebapiCore.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
+    [Authorize]
     public class ShipmentController : ControllerBase
     {
         private readonly Ishipment _shipment;
